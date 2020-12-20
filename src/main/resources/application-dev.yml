@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    platform: dev
+    url: jdbc:h2:mem:test
+  h2.console.enabled: true
+  jpa.show-sql: false
+management.endpoints.web.exposure.include: '*'
