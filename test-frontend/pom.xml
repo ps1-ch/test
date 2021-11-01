@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.github.ps1-ch.test</groupId>
+    <artifactId>test-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
+  </parent>
+  <artifactId>test-frontend</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <profiles>
+    <profile>
+      <id>frontend</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <directory>dist</directory>
+          </resource>
+        </resources>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <!-- Use the latest released version: https://repo1.maven.org/maven2/org/codehaus/mojo/exec-maven-plugin/ -->
+            <version>3.0.0</version>
+            <executions>
+              <execution>
+                <id>npm install</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>install</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>npm run build</id>
+                <goals>
+                  <goal>exec</goal>
+                </goals>
+                <phase>generate-resources</phase>
+                <configuration>
+                  <executable>npm</executable>
+                  <arguments>
+                    <argument>run</argument>
+                    <argument>build</argument>
+                  </arguments>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+</project>

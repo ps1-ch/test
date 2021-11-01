@@ -18,27 +18,45 @@ class TestController(
     val session: Session = Session.getInstance(Properties()),
     val store: MutableMap<String, Store> = mutableMapOf(),
 ) {
-    @RequestMapping("login")
-    fun login(user: Principal): Principal {
+    @RequestMapping("user")
+    fun user(user: Principal): Principal {
         return user
     }
 
-    @RequestMapping("connect")
-    fun connect(@AuthenticationPrincipal user: User): Iterable<Account> {
-        accountRepository.findAllByUser(user).apply {
-            forEach { setup(it) }
+    @RequestMapping("accounts")
+    fun accounts(@AuthenticationPrincipal user: User): Iterable<Account> {
+        return accountRepository.findAllByUser(user)
+    }
+
+//    @RequestMapping("connect")
+//    fun connect(@AuthenticationPrincipal user: User): Iterable<Account> {
+//        accountRepository.findAllByUser(user).apply {
+//            forEach { setup(it) }
+//            return this
+//        }
+//    }
+
+    @RequestMapping("login")
+    fun login(
+        @AuthenticationPrincipal user: User,
+        @RequestParam accountName: String
+    ): Account? {
+        accountRepository.findByUserAndName(user, accountName).apply {
+            this?.let {
+                setup(it)
+            }
             return this
         }
     }
 
-    @PostMapping("select")
+    @RequestMapping("select")
     fun select(
         @AuthenticationPrincipal user: User,
-        @RequestParam account: String,
+        @RequestParam accountName: String,
         @RequestParam(defaultValue = "1") page: Int,
         @RequestParam(defaultValue = "10") size: Int
     ): List<RenderedMessage> {
-        store[account]?.getFolder("INBOX").let { folder ->
+        store[accountName]?.getFolder("INBOX").let { folder ->
             folder?.open(Folder.READ_ONLY)
             folder?.messages?.copyOfRange(page * size - size, page * size).let { messages ->
                 folder?.fetch(messages, FetchProfile().apply { add(FetchProfile.Item.ENVELOPE) })
