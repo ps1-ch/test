@@ -14,9 +14,9 @@
     <description>${project.artifactId}</description>
     <properties>
         <java.version>11</java.version>
-        <kotlin.version>1.4.10</kotlin.version>
+        <kotlin.version>1.5.31</kotlin.version>
         <hibernate.version>5.4.25.Final</hibernate.version>
-        <tomcat.version>9.0.40</tomcat.version>
+        <tomcat.version>9.0.54</tomcat.version>
     </properties>
     <dependencies>
         <dependency>
