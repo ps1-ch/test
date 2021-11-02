@@ -30,4 +30,4 @@ jobs:
           java-version: 11
 
       - name: Build with maven
-        run: mvn -B -P owasp -D scan verify
+        run: mvn -B -P frontend,owasp -D scan verify
