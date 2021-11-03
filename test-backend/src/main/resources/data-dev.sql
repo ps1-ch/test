@@ -1,6 +1,6 @@
 -- User
 insert into user(username, password) values
-('user', '$2a$10$8uWwUAEEZ66bcQKzUN6HfeYMMmYCLmTrsHhzmJfDTCphBsiv/bGEe');
+('username', '$2a$10$8uWwUAEEZ66bcQKzUN6HfeYMMmYCLmTrsHhzmJfDTCphBsiv/bGEe');
 
 -- Inbound
 insert into inbound(id, host, username, password) values
@@ -10,6 +10,6 @@ insert into inbound(id, host, username, password) values
 
 -- Account
 insert into account(id, name, color, user_username, inbound_id) values
-(1, 'account1', 1, 'user', 1),
-(2, 'account2', 2, 'user', 2),
-(3, 'account3', 3, 'user', 3);
+(1, 'account1', 1, 'username', 1),
+(2, 'account2', 2, 'username', 2),
+(3, 'account3', 3, 'username', 3);

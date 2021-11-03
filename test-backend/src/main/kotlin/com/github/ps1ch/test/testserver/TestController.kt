@@ -3,10 +3,7 @@ package com.github.ps1ch.test.testserver
 import jakarta.mail.*
 import org.springframework.context.annotation.Scope
 import org.springframework.security.core.annotation.AuthenticationPrincipal
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 import java.security.Principal
 import java.util.*
 
@@ -18,12 +15,12 @@ class TestController(
     val session: Session = Session.getInstance(Properties()),
     val store: MutableMap<String, Store> = mutableMapOf(),
 ) {
-    @RequestMapping("user")
+    @GetMapping("user")
     fun user(user: Principal): Principal {
         return user
     }
 
-    @RequestMapping("accounts")
+    @PostMapping("accounts")
     fun accounts(@AuthenticationPrincipal user: User): Iterable<Account> {
         return accountRepository.findAllByUser(user)
     }
@@ -36,7 +33,7 @@ class TestController(
 //        }
 //    }
 
-    @RequestMapping("login")
+    @PostMapping("login")
     fun login(
         @AuthenticationPrincipal user: User,
         @RequestParam accountName: String
@@ -49,7 +46,7 @@ class TestController(
         }
     }
 
-    @RequestMapping("select")
+    @PostMapping("select")
     fun select(
         @AuthenticationPrincipal user: User,
         @RequestParam accountName: String,
